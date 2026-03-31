@@ -40,9 +40,9 @@ pub async fn handle_get(
             "services": ["tiktok", "twitter"]
         },
         "git": {
-            "branch": "unknown",
-            "commit": "unknown",
-            "remote": "idkmaybedeveloper/uran"
+            "branch": env!("GIT_BRANCH"),
+            "commit": env!("GIT_COMMIT"),
+            "remote": env!("GIT_REMOTE")
         }
     }))
 }
