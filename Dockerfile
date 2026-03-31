@@ -1,7 +1,10 @@
 # BUILDING STAGE
-FROM rust:alpine AS builder
+FROM rust:trixie AS builder
 
-RUN apk add --no-cache musl-dev pkgconfig openssl-dev
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -16,8 +19,11 @@ COPY . .
 RUN cargo build --release
 
 # RUNNING STAGE
-FROM alpine:3.20
-RUN apk add --no-cache ca-certificates libgcc
+FROM debian:trixie
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    ca-certificates \
+    openssl \
+    && rm -rf /var/lib/apt/lists/*
 
 COPY --from=builder /app/target/release/uran /usr/local/bin/uran
 
