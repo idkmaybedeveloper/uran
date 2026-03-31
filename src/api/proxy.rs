@@ -7,7 +7,7 @@ use axum::{
 use base64::{Engine, engine::general_purpose::URL_SAFE_NO_PAD};
 use chrono::Utc;
 use dashmap::DashMap;
-use hmac::{Hmac, Mac};
+use hmac::{Hmac, Mac, KeyInit};
 use serde::Deserialize;
 use sha2::Sha256;
 use std::collections::HashMap;
