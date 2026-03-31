@@ -13,10 +13,10 @@ COPY Cargo.toml Cargo.lock ./
 RUN mkdir src && \
     echo "fn main() {}" > src/main.rs && \
     cargo build --release && \
-    rm -rf src
+    rm -rf src/main.rs
 
 COPY . .
-RUN cargo build --release
+RUN touch src/main.rs && cargo build --release
 
 # RUNNING STAGE
 FROM debian:trixie
